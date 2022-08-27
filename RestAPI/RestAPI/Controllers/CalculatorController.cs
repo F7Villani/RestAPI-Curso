@@ -74,7 +74,7 @@ namespace RestAPI.Controllers
         {
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
-                decimal avg = (ConvertToDecimal(firstNumber) / ConvertToDecimal(secondNumber))/2;
+                decimal avg = (ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber))/2;
                 return Ok(avg.ToString());
             }
             return BadRequest("Invalid Input");
