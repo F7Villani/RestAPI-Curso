@@ -45,6 +45,17 @@ namespace RestAPI.Controllers
                 return Ok(sub.ToString());
             }
             return BadRequest("Invalid Input");
+        } 
+
+        [HttpGet("mult/{firstNumber}/{secondNumber}")]
+        public IActionResult Get(string firstNumber, string secondNumber)
+        {
+            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
+            {
+                decimal mult = ConvertToDecimal(firstNumber) * ConvertToDecimal(secondNumber);
+                return Ok(mult.ToString());
+            }
+            return BadRequest("Invalid Input");
         }
 
         private bool IsNumeric(string strNumber)
