@@ -19,10 +19,25 @@ namespace RestAPI.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("sum/{firstNumber}/{secondNumber}")]
+        public IActionResult Get(string firstNumber, string secondNumber)
         {
+            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
+            {
+                decimal sum = ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber);
+                return Ok(sum.ToString());
+            }
+            return BadRequest("Invalid Input");
+        }
 
+        private int ConvertToDecimal(string number)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool IsNumeric(string number)
+        {
+            return false;
         }
     }
 }
