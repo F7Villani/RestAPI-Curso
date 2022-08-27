@@ -26,7 +26,7 @@ namespace RestAPI.Controllers
         }
 
         [HttpGet("sum/{firstNumber}/{secondNumber}")]
-        public IActionResult Get(string firstNumber, string secondNumber)
+        public IActionResult Sum(string firstNumber, string secondNumber)
         {
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
@@ -37,7 +37,7 @@ namespace RestAPI.Controllers
         }
 
         [HttpGet("sub/{firstNumber}/{secondNumber}")]
-        public IActionResult Get(string firstNumber, string secondNumber)
+        public IActionResult Subtraction(string firstNumber, string secondNumber)
         {
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
@@ -48,7 +48,7 @@ namespace RestAPI.Controllers
         } 
 
         [HttpGet("mult/{firstNumber}/{secondNumber}")]
-        public IActionResult Get(string firstNumber, string secondNumber)
+        public IActionResult Multiplication(string firstNumber, string secondNumber)
         {
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
@@ -59,7 +59,7 @@ namespace RestAPI.Controllers
         }
 
         [HttpGet("div/{firstNumber}/{secondNumber}")]
-        public IActionResult Get(string firstNumber, string secondNumber)
+        public IActionResult Division(string firstNumber, string secondNumber)
         {
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
@@ -70,7 +70,7 @@ namespace RestAPI.Controllers
         }
 
         [HttpGet("avg/{firstNumber}/{secondNumber}")]
-        public IActionResult Get(string firstNumber, string secondNumber)
+        public IActionResult Average(string firstNumber, string secondNumber)
         {
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
@@ -81,7 +81,7 @@ namespace RestAPI.Controllers
         }
 
         [HttpGet("sqr/{firstNumber}")]
-        public IActionResult Get(string firstNumber)
+        public IActionResult SquareRoot(string firstNumber)
         {
             if (IsNumeric(firstNumber))
             {
