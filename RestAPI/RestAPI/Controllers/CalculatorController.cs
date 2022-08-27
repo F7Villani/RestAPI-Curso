@@ -69,6 +69,17 @@ namespace RestAPI.Controllers
             return BadRequest("Invalid Input");
         }
 
+        [HttpGet("avg/{firstNumber}/{secondNumber}")]
+        public IActionResult Get(string firstNumber, string secondNumber)
+        {
+            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
+            {
+                decimal avg = (ConvertToDecimal(firstNumber) / ConvertToDecimal(secondNumber))/2;
+                return Ok(avg.ToString());
+            }
+            return BadRequest("Invalid Input");
+        }
+
         private bool IsNumeric(string strNumber)
         {
             decimal number;
