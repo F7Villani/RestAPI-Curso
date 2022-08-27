@@ -22,7 +22,7 @@ namespace RestAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(" === Calculador ===");
+            return Ok(" === Calculadora ===");
         }
 
         [HttpGet("sum/{firstNumber}/{secondNumber}")]
