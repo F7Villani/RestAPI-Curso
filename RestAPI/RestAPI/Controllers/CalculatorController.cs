@@ -31,14 +31,15 @@ namespace RestAPI.Controllers
         }
         private bool IsNumeric(string strNumber)
         {
-            double number;
-            bool isNumber = Double.TryParse(strNumber, System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out number);
+            decimal number;
+            bool isNumber = Decimal.TryParse(strNumber, System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out number);
             return isNumber;
         }
 
-        private int ConvertToDecimal(string number)
+        private decimal ConvertToDecimal(string strNumber)
         {
-            throw new NotImplementedException();
+            decimal number = Decimal.Parse(strNumber);
+            return number;
         }
 
     }
