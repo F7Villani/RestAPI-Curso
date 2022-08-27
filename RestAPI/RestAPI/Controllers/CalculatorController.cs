@@ -19,6 +19,12 @@ namespace RestAPI.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(" === Calculador ===");
+        }
+
         [HttpGet("sum/{firstNumber}/{secondNumber}")]
         public IActionResult Get(string firstNumber, string secondNumber)
         {
