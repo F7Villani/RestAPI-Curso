@@ -80,6 +80,18 @@ namespace RestAPI.Controllers
             return BadRequest("Invalid Input");
         }
 
+        [HttpGet("sqr/{firstNumber}")]
+        public IActionResult Get(string firstNumber)
+        {
+            if (IsNumeric(firstNumber))
+            {
+                double sqr = Math.Sqrt(ConvertToDouble(firstNumber));
+                return Ok(sqr.ToString());
+            }
+            return BadRequest("Invalid Input");
+        }
+
+
         private bool IsNumeric(string strNumber)
         {
             decimal number;
@@ -90,6 +102,11 @@ namespace RestAPI.Controllers
         private decimal ConvertToDecimal(string strNumber)
         {
             decimal number = Decimal.Parse(strNumber);
+            return number;
+        }
+        private double ConvertToDouble(string strNumber)
+        {
+            double number = Double.Parse(strNumber);
             return number;
         }
 
