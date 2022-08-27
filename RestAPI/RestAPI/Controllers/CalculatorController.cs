@@ -29,15 +29,17 @@ namespace RestAPI.Controllers
             }
             return BadRequest("Invalid Input");
         }
+        private bool IsNumeric(string strNumber)
+        {
+            double number;
+            bool isNumber = Double.TryParse(strNumber, System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out number);
+            return isNumber;
+        }
 
         private int ConvertToDecimal(string number)
         {
             throw new NotImplementedException();
         }
 
-        private bool IsNumeric(string number)
-        {
-            return false;
-        }
     }
 }
