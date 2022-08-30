@@ -34,7 +34,7 @@ namespace RestAPI.Services.Implementations
         {
             return new Person
             {
-                Id = IncrementAndGet(),
+                Id = id,
                 FirstName = "Felipe",
                 LastName = "Villani",
                 Address = "Brazil",
