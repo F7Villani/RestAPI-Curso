@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace RestAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PersonController : ControllerBase
     {
 
@@ -30,7 +30,7 @@ namespace RestAPI.Controllers
             return Ok(_personService.GetAll());
         }
 
-        [HttpGet("(id)")]
+        [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
             Person person = _personService.GetById(id);
@@ -61,7 +61,7 @@ namespace RestAPI.Controllers
             return Ok(_personService.Update(person));
         }
 
-        [HttpDelete("(id)")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
             _personService.Delete(id);
