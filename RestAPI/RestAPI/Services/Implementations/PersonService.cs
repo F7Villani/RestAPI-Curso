@@ -1,68 +1,96 @@
 ﻿using RestAPI.Models;
+using RestAPI.Models.Context;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading;
 
 namespace RestAPI.Services.Implementations
 {
     public class PersonService : IPersonService
     {
-        private volatile int count;
+        private MySQLContext _context;
+
+        public PersonService(MySQLContext context)
+        {
+            _context = context;
+        }
+
+        #region CRUD
+
+        public List<Person> GetAll()
+        {
+            return _context.People.ToList();
+        }
+
+        public Person GetById(long id)
+        {
+            return _context.People.SingleOrDefault(p => p.Id == id);
+        }
+
         public Person Create(Person person)
         {
+            try
+            {
+                _context.Add(person);
+                _context.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            return person;
+        }
+        
+        public Person Update(Person person)
+        {
+            if (!Exists(person.Id)) return new Person();
+            
+            Person personToUpdate = _context.People.SingleOrDefault(p => p.Id == person.Id);
+
+            if(personToUpdate != null)
+            {
+                try
+                {
+                    _context.Entry(personToUpdate).CurrentValues.SetValues(person);
+                    _context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
             return person;
         }
 
         public void Delete(long id)
         {
+            Person personToUpdate = _context.People.SingleOrDefault(p => p.Id == id);
 
-        }
-
-        public List<Person> GetAll()
-        {
-            List<Person> people = new List<Person>();
-            for(int i=0; i<8; i++)
+            if (personToUpdate != null)
             {
-                Person person = MockPerson(i);
-                people.Add(person);
+                try
+                {
+                    _context.People.Remove(personToUpdate);
+                    _context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
-            return people;
         }
 
+        #endregion
 
-        public Person GetById(long id)
+        #region Util
+
+        private bool Exists(long id)
         {
-            return new Person
-            {
-                Id = id,
-                FirstName = "Felipe",
-                LastName = "Villani",
-                Address = "Brazil",
-                Gender = "Male"
-            };
+            return _context.People.Any(p => p.Id == id);
         }
 
-        public Person Update(Person person)
-        {
-            return person;
-        }
-
-        private Person MockPerson(int i)
-        {
-            return new Person()
-            {
-                Id = IncrementAndGet(),
-                FirstName = "Person Name" + i,
-                LastName = "Perosn Last Name" + i,
-                Address = "Person Address" + i,
-                Gender = (i%2) == 0? "Male" : "Female"
-
-            };
-        }
-
-        private long IncrementAndGet()
-        {
-            return Interlocked.Increment(ref count);
-        }
+        #endregion
     }
 }
