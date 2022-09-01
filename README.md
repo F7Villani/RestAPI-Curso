@@ -4,3 +4,4 @@
 #
 **O que foi usado:**
 - C# (.NET 5)
+- MySQL
