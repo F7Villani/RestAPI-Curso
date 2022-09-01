@@ -2,10 +2,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RestAPI.Models.Context;
 using RestAPI.Services;
 using RestAPI.Services.Implementations;
 using System;
@@ -29,6 +31,10 @@ namespace RestAPI
         {
 
             services.AddControllers();
+
+            // Conexão banco de dados
+            string connection = Configuration["MySQLConnection:MySQLConnectionString"];
+            services.AddDbContext<MySQLContext>(options => options.UseMySql(connection));
 
             // Injeção de dependência
             services.AddScoped<IPersonService, PersonService>();
