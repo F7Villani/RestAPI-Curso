@@ -2,10 +2,6 @@
 using Microsoft.Extensions.Logging;
 using RestAPI.Services;
 using RestAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RestAPI.Controllers
 {
