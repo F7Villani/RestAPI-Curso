@@ -36,6 +36,9 @@ namespace RestAPI
             string connection = Configuration["MySQLConnection:MySQLConnectionString"];
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection));
 
+            // Versionamento de endpoints
+            services.AddApiVersioning();
+
             // Injeção de dependência
             services.AddScoped<IPersonService, PersonService>();
         }
