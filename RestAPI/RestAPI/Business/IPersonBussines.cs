@@ -1,9 +1,9 @@
 ﻿using RestAPI.Models;
 using System.Collections.Generic;
 
-namespace RestAPI.Services
+namespace RestAPI.Business
 {
-    public interface IPersonService
+    public interface IPersonBusiness
     {
         Person Create(Person person);
 
@@ -14,8 +14,5 @@ namespace RestAPI.Services
         List<Person> GetAll();
 
         void Delete(long id);
-
-
-
     }
 }

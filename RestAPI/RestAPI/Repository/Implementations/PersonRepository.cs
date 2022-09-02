@@ -4,18 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RestAPI.Services.Implementations
+namespace RestAPI.Repository.Implementations
 {
-    public class PersonService : IPersonService
+    public class PersonRepository : IPersonRepository
     {
         private MySQLContext _context;
 
-        public PersonService(MySQLContext context)
+        public PersonRepository(MySQLContext context)
         {
             _context = context;
         }
-
-        #region CRUD
 
         public List<Person> GetAll()
         {
@@ -80,15 +78,9 @@ namespace RestAPI.Services.Implementations
             }
         }
 
-        #endregion
-
-        #region Util
-
-        private bool Exists(long id)
+        public bool Exists(long id)
         {
             return _context.People.Any(p => p.Id == id);
         }
-
-        #endregion
     }
 }

@@ -1,19 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using RestAPI.Models.Context;
-using RestAPI.Services;
-using RestAPI.Services.Implementations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using RestAPI.Business;
+using RestAPI.Business.Implementations;
+using RestAPI.Repository;
+using RestAPI.Repository.Implementations;
 
 namespace RestAPI
 {
@@ -40,7 +35,8 @@ namespace RestAPI
             services.AddApiVersioning();
 
             // Injeção de dependência
-            services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IPersonBusiness, PersonBusiness>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
