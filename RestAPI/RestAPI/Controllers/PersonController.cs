@@ -54,7 +54,15 @@ namespace RestAPI.Controllers
             {
                 return BadRequest();
             }
-            return Ok(_personBusiness.Update(person));
+
+            Person personUpdated = _personBusiness.Update(person);
+
+            if(personUpdated == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(personUpdated);
         }
 
         [HttpDelete("{id}")]

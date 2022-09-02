@@ -41,7 +41,7 @@ namespace RestAPI.Repository.Implementations
         
         public Person Update(Person person)
         {
-            if (!Exists(person.Id)) return new Person();
+            if (!Exists(person.Id)) return null;
             
             Person personToUpdate = _context.People.SingleOrDefault(p => p.Id == person.Id);
 
