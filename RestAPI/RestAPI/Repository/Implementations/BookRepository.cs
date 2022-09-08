@@ -6,50 +6,50 @@ using System.Linq;
 
 namespace RestAPI.Repository.Implementations
 {
-    public class PersonRepository : IPersonRepository
+    public class BookRepository : IBookRepository
     {
         private MySQLContext _context;
 
-        public PersonRepository(MySQLContext context)
+        public BookRepository(MySQLContext context)
         {
             _context = context;
         }
 
-        public List<Person> GetAll()
+        public List<Book> GetAll()
         {
-            return _context.People.ToList();
+            return _context.Books.ToList();
         }
 
-        public Person GetById(long id)
+        public Book GetById(long id)
         {
-            return _context.People.SingleOrDefault(p => p.Id == id);
+            return _context.Books.SingleOrDefault(p => p.Id == id);
         }
 
-        public Person Create(Person person)
+        public Book Create(Book book)
         {
             try
             {
-                _context.Add(person);
+                _context.Add(book);
                 _context.SaveChanges();
             }
             catch(Exception ex)
             {
                 throw ex;
             }
-            return person;
+            return book;
         }
         
-        public Person Update(Person person)
+        public Book Update(Book book)
         {
-            if (!Exists(person.Id)) return null;
+            if (!Exists(book.Id)) return null;
             
-            Person personToUpdate = _context.People.SingleOrDefault(p => p.Id == person.Id);
+            Book bookToUpdate = _context.Books.SingleOrDefault(p => p.Id == book.Id);
 
-            if(personToUpdate != null)
+            if(bookToUpdate != null)
             {
                 try
                 {
-                    _context.Entry(personToUpdate).CurrentValues.SetValues(person);
+                    _context.Entry(bookToUpdate).CurrentValues.SetValues(book);
                     _context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -57,18 +57,18 @@ namespace RestAPI.Repository.Implementations
                     throw ex;
                 }
             }
-            return person;
+            return book;
         }
 
         public void Delete(long id)
         {
-            Person personToUpdate = _context.People.SingleOrDefault(p => p.Id == id);
+            Book bookToUpdate = _context.Books.SingleOrDefault(p => p.Id == id);
 
-            if (personToUpdate != null)
+            if (bookToUpdate != null)
             {
                 try
                 {
-                    _context.People.Remove(personToUpdate);
+                    _context.Books.Remove(bookToUpdate);
                     _context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -80,7 +80,7 @@ namespace RestAPI.Repository.Implementations
 
         public bool Exists(long id)
         {
-            return _context.People.Any(p => p.Id == id);
+            return _context.Books.Any(p => p.Id == id);
         }
     }
 }

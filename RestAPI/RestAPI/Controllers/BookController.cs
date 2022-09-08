@@ -8,67 +8,67 @@ namespace RestAPI.Controllers
     [ApiVersion("1")]
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class PersonController : ControllerBase
+    public class BookController : ControllerBase
     {
 
-        private readonly ILogger<PersonController> _logger;
-        private IPersonBusiness _personBusiness;
+        private readonly ILogger<BookController> _logger;
+        private IBookBusiness _bookBusiness;
 
-        public PersonController(ILogger<PersonController> logger, IPersonBusiness personBusiness)
+        public BookController(ILogger<BookController> logger, IBookBusiness bookBusiness)
         {
             _logger = logger;
-            _personBusiness = personBusiness;
+            _bookBusiness = bookBusiness;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_personBusiness.GetAll());
+            return Ok(_bookBusiness.GetAll());
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            Person person = _personBusiness.GetById(id);
-            if(person == null)
+            Book book = _bookBusiness.GetById(id);
+            if(book == null)
             {
                 return NotFound();
             }
-            return Ok(person);
+            return Ok(book);
         }
         
         [HttpPost]
-        public IActionResult Create([FromBody] Person person)
+        public IActionResult Create([FromBody] Book book)
         {
-            if(person == null)
+            if(book == null)
             {
                 return BadRequest();
             }
-            return Ok(_personBusiness.Create(person));
+            return Ok(_bookBusiness.Create(book));
         }
         
         [HttpPut]
-        public IActionResult Update([FromBody] Person person)
+        public IActionResult Update([FromBody] Book book)
         {
-            if(person == null)
+            if(book == null)
             {
                 return BadRequest();
             }
 
-            Person personUpdated = _personBusiness.Update(person);
+            Book bookUpdated = _bookBusiness.Update(book);
 
-            if(personUpdated == null)
+            if(bookUpdated == null)
             {
                 return BadRequest();
             }
 
-            return Ok(personUpdated);
+            return Ok(bookUpdated);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            _personBusiness.Delete(id);
+            _bookBusiness.Delete(id);
             return NoContent();
         }
     }
