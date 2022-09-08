@@ -42,10 +42,12 @@ namespace RestAPI
             services.AddApiVersioning();
 
             // Injeção de dependência
-            services.AddScoped<IPersonBusiness, PersonBusiness>();
             services.AddScoped<IPersonRepository, PersonRepository>();
-            
-            if(Environment.IsDevelopment())
+            services.AddScoped<IPersonBusiness, PersonBusiness>();
+            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IBookBusiness, BookBusiness>();
+
+            if (Environment.IsDevelopment())
             {
                 MigrateDatabase(connection);
             }
