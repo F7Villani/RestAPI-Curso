@@ -12,6 +12,7 @@ using RestAPI.Repository.Implementations;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using RestAPI.Repository.Generic;
 
 namespace RestAPI
 {
@@ -42,11 +43,11 @@ namespace RestAPI
             services.AddApiVersioning();
 
             // Injeção de dependência
-            services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IPersonBusiness, PersonBusiness>();
-            services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IBookBusiness, BookBusiness>();
 
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+            
             if (Environment.IsDevelopment())
             {
                 MigrateDatabase(connection);
