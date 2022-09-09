@@ -6,9 +6,9 @@ namespace RestAPI.Business.Implementations
 {
     public class PersonBusiness : IPersonBusiness
     {
-        private IPersonRepository _repository;
+        private IRepository<Person> _repository;
 
-        public PersonBusiness(IPersonRepository repository)
+        public PersonBusiness(IRepository<Person> repository)
         {
             _repository = repository;
         }

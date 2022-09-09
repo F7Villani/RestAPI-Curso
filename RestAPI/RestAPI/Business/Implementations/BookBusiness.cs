@@ -6,9 +6,9 @@ namespace RestAPI.Business.Implementations
 {
     public class BookBusiness : IBookBusiness
     {
-        private IBookRepository _repository;
+        private IRepository<Book> _repository;
 
-        public BookBusiness(IBookRepository repository)
+        public BookBusiness(IRepository<Book> repository)
         {
             _repository = repository;
         }
