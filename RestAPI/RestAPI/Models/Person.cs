@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RestAPI.Models
 {
@@ -20,5 +21,15 @@ namespace RestAPI.Models
 
         [Column("gender")]
         public string Gender { get; set; }
+
+        public bool IsEmpty()
+        {
+            bool isEmpty = false;
+
+            if(FirstName == null && LastName == null && Address == null && Gender == null)
+                isEmpty = true;
+
+            return isEmpty;
+        }
     }
 }
