@@ -1,14 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using RestAPI.Models.Base;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RestAPI.Models
 {
     // Referência da tabela no BD
     [Table("people")]
-    public class Person
+    public class Person : BaseEntity
     {
-        [Column("id")]
-        public long Id { get; set; }
 
         [Column("firstName")]
         public string FirstName { get; set; }
