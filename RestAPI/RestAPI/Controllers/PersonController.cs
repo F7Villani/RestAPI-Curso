@@ -40,7 +40,7 @@ namespace RestAPI.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] Person person)
         {
-            if(person == null)
+            if(person == null || person.IsEmpty())
             {
                 return BadRequest();
             }
