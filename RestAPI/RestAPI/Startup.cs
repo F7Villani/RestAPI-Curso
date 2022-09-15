@@ -8,7 +8,6 @@ using RestAPI.Models.Context;
 using RestAPI.Business;
 using RestAPI.Business.Implementations;
 using RestAPI.Repository;
-using RestAPI.Repository.Implementations;
 using Serilog;
 using System;
 using System.Collections.Generic;
