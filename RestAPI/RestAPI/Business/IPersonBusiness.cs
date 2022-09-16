@@ -1,17 +1,17 @@
-﻿using RestAPI.Models;
+﻿using RestAPI.Data.Converter.VO;
 using System.Collections.Generic;
 
 namespace RestAPI.Business
 {
     public interface IPersonBusiness
     {
-        Person Create(Person person);
+        PersonVO Create(PersonVO person);
 
-        Person GetById(long id);
+        PersonVO GetById(long id);
 
-        Person Update(Person person);
+        PersonVO Update(PersonVO person);
 
-        List<Person> GetAll();
+        List<PersonVO> GetAll();
 
         void Delete(long id);
     }
