@@ -1,17 +1,17 @@
-﻿using RestAPI.Models;
+﻿using RestAPI.Data.VO;
 using System.Collections.Generic;
 
 namespace RestAPI.Business
 {
     public interface IBookBusiness
     {
-        Book Create(Book book);
+        BookVO Create(BookVO book);
        
-        Book GetById(long id);
+        BookVO GetById(long id);
         
-        Book Update(Book book);
+        BookVO Update(BookVO book);
 
-        List<Book> GetAll();
+        List<BookVO> GetAll();
 
         void Delete(long id);
     }
