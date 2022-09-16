@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestAPI.Business;
-using RestAPI.Models;
+using RestAPI.Data.Converter.VO;
 
 namespace RestAPI.Controllers
 {
@@ -29,7 +29,7 @@ namespace RestAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            Person person = _personBusiness.GetById(id);
+            PersonVO person = _personBusiness.GetById(id);
             if(person == null)
             {
                 return NotFound();
@@ -38,9 +38,9 @@ namespace RestAPI.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create([FromBody] Person person)
+        public IActionResult Create([FromBody] PersonVO person)
         {
-            if(person == null)
+            if(person == null || person.IsEmpty())
             {
                 return BadRequest();
             }
@@ -48,14 +48,14 @@ namespace RestAPI.Controllers
         }
         
         [HttpPut]
-        public IActionResult Update([FromBody] Person person)
+        public IActionResult Update([FromBody] PersonVO person)
         {
             if(person == null)
             {
                 return BadRequest();
             }
 
-            Person personUpdated = _personBusiness.Update(person);
+            PersonVO personUpdated = _personBusiness.Update(person);
 
             if(personUpdated == null)
             {

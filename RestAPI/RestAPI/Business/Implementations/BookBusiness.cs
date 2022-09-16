@@ -1,4 +1,6 @@
-﻿using RestAPI.Models;
+﻿using RestAPI.Data.Contract.Implementations;
+using RestAPI.Data.VO;
+using RestAPI.Models;
 using RestAPI.Repository;
 using System.Collections.Generic;
 
@@ -6,31 +8,37 @@ namespace RestAPI.Business.Implementations
 {
     public class BookBusiness : IBookBusiness
     {
-        private IBookRepository _repository;
+        private IRepository<Book> _repository;
+        private readonly BookConverter _converter;
 
-        public BookBusiness(IBookRepository repository)
+        public BookBusiness(IRepository<Book> repository)
         {
             _repository = repository;
+            _converter = new BookConverter();
         }
 
-        public List<Book> GetAll()
+        public List<BookVO> GetAll()
         {
-            return _repository.GetAll();
+            return _converter.Parse(_repository.GetAll());
         }
 
-        public Book GetById(long id)
+        public BookVO GetById(long id)
         {
-            return _repository.GetById(id);
+            return _converter.Parse(_repository.GetById(id));
         }
 
-        public Book Create(Book book)
+        public BookVO Create(BookVO book)
         {
-            return _repository.Create(book);
+            Book bookEntity = _converter.Parse(book);
+            bookEntity = _repository.Create(bookEntity);
+            return _converter.Parse(bookEntity);
         }
         
-        public Book Update(Book book)
+        public BookVO Update(BookVO book)
         {
-            return _repository.Update(book);
+            Book bookEntity = _converter.Parse(book);
+            bookEntity = _repository.Update(bookEntity);
+            return _converter.Parse(bookEntity);
         }
 
         public void Delete(long id)

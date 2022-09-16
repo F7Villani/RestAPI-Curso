@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestAPI.Business;
+using RestAPI.Data.VO;
 using RestAPI.Models;
 
 namespace RestAPI.Controllers
@@ -29,7 +30,7 @@ namespace RestAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            Book book = _bookBusiness.GetById(id);
+            BookVO book = _bookBusiness.GetById(id);
             if(book == null)
             {
                 return NotFound();
@@ -38,7 +39,7 @@ namespace RestAPI.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create([FromBody] Book book)
+        public IActionResult Create([FromBody] BookVO book)
         {
             if(book == null)
             {
@@ -48,14 +49,14 @@ namespace RestAPI.Controllers
         }
         
         [HttpPut]
-        public IActionResult Update([FromBody] Book book)
+        public IActionResult Update([FromBody] BookVO book)
         {
             if(book == null)
             {
                 return BadRequest();
             }
 
-            Book bookUpdated = _bookBusiness.Update(book);
+            BookVO bookUpdated = _bookBusiness.Update(book);
 
             if(bookUpdated == null)
             {
