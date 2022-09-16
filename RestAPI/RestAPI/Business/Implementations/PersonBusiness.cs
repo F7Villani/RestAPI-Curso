@@ -1,4 +1,6 @@
-﻿using RestAPI.Models;
+﻿using RestAPI.Data.Contract.Implementations;
+using RestAPI.Data.Converter.VO;
+using RestAPI.Models;
 using RestAPI.Repository;
 using System.Collections.Generic;
 
@@ -7,30 +9,36 @@ namespace RestAPI.Business.Implementations
     public class PersonBusiness : IPersonBusiness
     {
         private IRepository<Person> _repository;
+        private readonly PersonConverter _converter;
 
         public PersonBusiness(IRepository<Person> repository)
         {
             _repository = repository;
+            _converter = new PersonConverter();
         }
 
-        public List<Person> GetAll()
+        public List<PersonVO> GetAll()
         {
-            return _repository.GetAll();
+            return _converter.Parse(_repository.GetAll());
         }
 
-        public Person GetById(long id)
+        public PersonVO GetById(long id)
         {
-            return _repository.GetById(id);
+            return _converter.Parse(_repository.GetById(id));
         }
 
-        public Person Create(Person person)
+        public PersonVO Create(PersonVO personVO)
         {
-            return _repository.Create(person);
+            Person personEntity = _converter.Parse(personVO);
+            personEntity = _repository.Create(personEntity);
+            return _converter.Parse(personEntity);
         }
         
-        public Person Update(Person person)
+        public PersonVO Update(PersonVO personVO)
         {
-            return _repository.Update(person);
+            Person personEntity = _converter.Parse(personVO);
+            personEntity = _repository.Update(personEntity);
+            return _converter.Parse(personEntity);
         }
 
         public void Delete(long id)
