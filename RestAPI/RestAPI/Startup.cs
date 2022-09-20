@@ -12,6 +12,8 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using RestAPI.Repository.Generic;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace RestAPI
 {
@@ -40,6 +42,22 @@ namespace RestAPI
 
             // Versionamento de endpoints
             services.AddApiVersioning();
+
+            // Configurações do Swagger
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "Rest API - Curso",
+                        Version = "v1",
+                        Description = "API desenvolvida durante o curso: REST API's RESTFul do 0 à Azure com ASP.NET Core 5 e Docker ",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Felipe Villani",
+                            Url = new Uri("http://github.com/F7Villani")
+                        }
+                    });
+            });
 
             // Injeção de dependência
             services.AddScoped<IPersonBusiness, PersonBusiness>();
@@ -83,6 +101,18 @@ namespace RestAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI( c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rest API - Curso");
+            });
+
+            var option = new RewriteOptions();
+            option.AddRedirect("^$", "swagger");
+
+            app.UseRewriter(option);
 
             app.UseAuthorization();
 
