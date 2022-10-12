@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestAPI.Business;
+using RestAPI.Data.Converter.VO;
 using RestAPI.Data.VO;
 using RestAPI.Models;
+using System.Collections.Generic;
 
 namespace RestAPI.Controllers
 {
@@ -22,12 +24,18 @@ namespace RestAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType((200), Type = typeof(List<BookVO>))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Get()
         {
             return Ok(_bookBusiness.GetAll());
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType((200), Type = typeof(BookVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Get(long id)
         {
             BookVO book = _bookBusiness.GetById(id);
@@ -39,6 +47,9 @@ namespace RestAPI.Controllers
         }
         
         [HttpPost]
+        [ProducesResponseType((200), Type = typeof(BookVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Create([FromBody] BookVO book)
         {
             if(book == null)
@@ -49,6 +60,9 @@ namespace RestAPI.Controllers
         }
         
         [HttpPut]
+        [ProducesResponseType((200), Type = typeof(BookVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Update([FromBody] BookVO book)
         {
             if(book == null)
@@ -67,6 +81,9 @@ namespace RestAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Delete(long id)
         {
             _bookBusiness.Delete(id);

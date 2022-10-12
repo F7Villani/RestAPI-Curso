@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using RestAPI.Business;
 using RestAPI.Data.Converter.VO;
+using System.Collections.Generic;
 
 namespace RestAPI.Controllers
 {
@@ -21,12 +22,18 @@ namespace RestAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType((200), Type = typeof(List<PersonVO>))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Get()
         {
             return Ok(_personBusiness.GetAll());
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Get(long id)
         {
             PersonVO person = _personBusiness.GetById(id);
@@ -38,6 +45,9 @@ namespace RestAPI.Controllers
         }
         
         [HttpPost]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Create([FromBody] PersonVO person)
         {
             if(person == null || person.IsEmpty())
@@ -48,6 +58,9 @@ namespace RestAPI.Controllers
         }
         
         [HttpPut]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Update([FromBody] PersonVO person)
         {
             if(person == null)
@@ -66,6 +79,9 @@ namespace RestAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Delete(long id)
         {
             _personBusiness.Delete(id);
